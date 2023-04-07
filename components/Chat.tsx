@@ -24,6 +24,7 @@ export default function Chat({ user, toggleShowUserDetails, dispatch }: Props) {
   const [input, setInput] = useState<string>();
   const chatWindow = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
   const conversation = user
     ? conversations.getConversation(user?.login.uuid)
     : undefined;
@@ -45,6 +46,13 @@ export default function Chat({ user, toggleShowUserDetails, dispatch }: Props) {
       type: "setActiveConversationLength",
       payload: { length: conversation?.messages.length ?? 0 },
     });
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.code == "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      submitButtonRef.current?.click();
+    }
   };
 
   useEffect(() => {
@@ -155,6 +163,7 @@ export default function Chat({ user, toggleShowUserDetails, dispatch }: Props) {
                 <textarea
                   ref={inputRef}
                   className="max-h-48 resize-none overflow-scroll whitespace-pre-wrap rounded-lg p-2 [grid-area:_1_/_1_/_2_/_2] focus:bg-blue-50 focus:outline-none"
+                  onKeyDown={handleKeyDown}
                   onInput={(event) => setInput(event.currentTarget.value)}
                   placeholder="Type your message here..."
                   id="msg-content"
@@ -163,6 +172,7 @@ export default function Chat({ user, toggleShowUserDetails, dispatch }: Props) {
                 />
               </div>
               <button
+                ref={submitButtonRef}
                 className="group mx-3 flex h-14 w-14 items-center justify-center self-end rounded-full bg-lavender-500 p-3"
                 type="submit"
               >
