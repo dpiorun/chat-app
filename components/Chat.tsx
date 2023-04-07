@@ -12,7 +12,7 @@ import { Dispatch, FormEvent, useEffect, useRef, useState } from "react";
 import { conversations } from "@/lib/conversations";
 import Link from "next/link";
 import { Action } from "./Layout";
-import IntroBetaLogo from "../public/IntroBetaLogo.svg";
+import IntroBetaLogo from "../public/introBetaLogo.svg";
 
 interface Props {
   user?: User;

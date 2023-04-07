@@ -1,7 +1,7 @@
 import { User } from "@/types/backendTypes";
 import Avatar from "./Avatar";
 import Facebook from "../public/facebook.svg";
-import LinkedIn from "../public/linkedIn.svg";
+import LinkedIn from "../public/linkedin.svg";
 import Twitter from "../public/twitter.svg";
 import Information from "../public/information.svg";
 import Copy from "../public/copy.svg";
