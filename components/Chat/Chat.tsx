@@ -1,18 +1,19 @@
 import { User } from "@/types/backendTypes";
 import { getTime } from "@/utils/getTime";
-import Camera from "../public/camera.svg";
-import Dots from "../public/dots.svg";
-import Phone from "../public/phone.svg";
-import Star from "../public/star.svg";
-import Smile from "../public/smile.svg";
-import PaperPlane from "../public/paperPlane.svg";
-import Avatar from "./Avatar";
-import ArrowBack from "./ArrowBack";
+import Camera from "../../public/camera.svg";
+import Dots from "../../public/dots.svg";
+import Phone from "../../public/phone.svg";
+import Star from "../../public/star.svg";
+import Smile from "../../public/smile.svg";
+import IntroBetaLogo from "../../public/introBetaLogo.svg";
+
+import Avatar from "../Avatar";
+import ArrowBack from "../ArrowBack";
 import { Dispatch, FormEvent, useEffect, useRef, useState } from "react";
 import { conversations } from "@/lib/conversations";
 import Link from "next/link";
-import { Action } from "./Layout";
-import IntroBetaLogo from "../public/introBetaLogo.svg";
+import { Action } from "../Layout";
+import ChatInput from "./ChatInput";
 
 interface Props {
   user?: User;
@@ -21,19 +22,16 @@ interface Props {
 }
 
 export default function Chat({ user, toggleShowUserDetails, dispatch }: Props) {
-  const [input, setInput] = useState<string>();
+  const [input, setInput] = useState("");
   const chatWindow = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const submitButtonRef = useRef<HTMLButtonElement>(null);
+
   const conversation = user
     ? conversations.getConversation(user?.login.uuid)
     : undefined;
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const content = data.get("msg-content")?.toString().trim();
-    if (!content || !user) return;
+  const handleSubmit = (content: string) => {
+    if (!user) return;
     conversations.addMessage(user.login.uuid, {
       authorId: conversations.getMyId(),
       content,
@@ -46,13 +44,6 @@ export default function Chat({ user, toggleShowUserDetails, dispatch }: Props) {
       type: "setActiveConversationLength",
       payload: { length: conversation?.messages.length ?? 0 },
     });
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.code == "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      submitButtonRef.current?.click();
-    }
   };
 
   useEffect(() => {
@@ -154,31 +145,12 @@ export default function Chat({ user, toggleShowUserDetails, dispatch }: Props) {
                 <Smile className="fill-slate-400 text-2xl" />
               </button>
             </div>
-            <form className="flex items-center" onSubmit={handleSubmit}>
-              <div
-                className='grid grow self-center after:invisible after:max-h-48 after:overflow-hidden after:whitespace-pre-wrap after:p-2 after:content-[attr(data-replicated-value)_"_"] after:[grid-area:_1_/_1_/_2_/_2]'
-                data-replicated-value={input}
-                onClick={() => inputRef.current?.focus()}
-              >
-                <textarea
-                  ref={inputRef}
-                  className="max-h-48 resize-none overflow-scroll whitespace-pre-wrap rounded-lg p-2 [grid-area:_1_/_1_/_2_/_2] focus:bg-blue-50 focus:outline-none"
-                  onKeyDown={handleKeyDown}
-                  onInput={(event) => setInput(event.currentTarget.value)}
-                  placeholder="Type your message here..."
-                  id="msg-content"
-                  name="msg-content"
-                  rows={1}
-                />
-              </div>
-              <button
-                ref={submitButtonRef}
-                className="group mx-3 flex h-14 w-14 items-center justify-center self-end rounded-full bg-lavender-500 p-3"
-                type="submit"
-              >
-                <PaperPlane className="rotate-12 fill-white stroke-white text-2xl group-hover:stroke-2" />
-              </button>
-            </form>
+            <ChatInput
+              ref={inputRef}
+              input={input}
+              setInput={setInput}
+              onSubmit={handleSubmit}
+            />
           </div>
         </>
       ) : (
