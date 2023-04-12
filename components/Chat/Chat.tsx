@@ -14,6 +14,7 @@ import { conversations } from "@/lib/conversations";
 import Link from "next/link";
 import { Action } from "../Layout";
 import ChatInput from "./ChatInput";
+import ErrorBoundary from "../ErrorBoundary";
 
 interface Props {
   user?: User;
@@ -99,44 +100,46 @@ export default function Chat({ user, toggleShowUserDetails, dispatch }: Props) {
             >
               {conversation?.messages.map((msg, index) => (
                 <li key={index} className="flex w-full gap-4 px-6 py-2">
-                  {msg.authorId == user?.login.uuid ? (
-                    <>
-                      <Avatar src={user?.picture.thumbnail} size="sm" />
+                  <ErrorBoundary>
+                    {msg.authorId == user?.login.uuid ? (
+                      <>
+                        <Avatar src={user?.picture.thumbnail} size="sm" />
+                        <div className="grow">
+                          <div className="flex">
+                            <div className="mt-4 inline-block w-3 overflow-hidden">
+                              <div className="h-4 origin-top-right -rotate-45 transform bg-lightgray"></div>
+                            </div>
+                            <div className="rounded-lg bg-lightgray p-4">
+                              {msg.content}
+                            </div>
+                          </div>
+                          <div className="pl-6">
+                            <p className="text-[0.7rem] text-slate-500">
+                              {getTime(new Date(msg.timestamp))}
+                            </p>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
                       <div className="grow">
-                        <div className="flex">
-                          <div className="mt-4 inline-block w-3 overflow-hidden">
-                            <div className="h-4 origin-top-right -rotate-45 transform bg-lightgray"></div>
+                        <div className="flex flex-col items-end">
+                          <div className="grid grid-cols-[minmax(0,_1fr)_max-content] pl-16">
+                            <div className="rounded-lg bg-blue-100 p-4">
+                              {msg.content}
+                            </div>
+                            <div className="mt-4 inline-block w-3 overflow-hidden">
+                              <div className="h-4 origin-top-left rotate-45 transform bg-blue-100"></div>
+                            </div>
                           </div>
-                          <div className="rounded-lg bg-lightgray p-4">
-                            {msg.content}
+                          <div className="pr-6">
+                            <p className="text-[0.7rem] text-slate-500">
+                              {getTime(new Date(msg.timestamp))}
+                            </p>
                           </div>
-                        </div>
-                        <div className="pl-6">
-                          <p className="text-[0.7rem] text-slate-500">
-                            {getTime(new Date(msg.timestamp))}
-                          </p>
                         </div>
                       </div>
-                    </>
-                  ) : (
-                    <div className="grow">
-                      <div className="flex flex-col items-end">
-                        <div className="grid grid-cols-[minmax(0,_1fr)_max-content] pl-16">
-                          <div className="rounded-lg bg-blue-100 p-4">
-                            {msg.content}
-                          </div>
-                          <div className="mt-4 inline-block w-3 overflow-hidden">
-                            <div className="h-4 origin-top-left rotate-45 transform bg-blue-100"></div>
-                          </div>
-                        </div>
-                        <div className="pr-6">
-                          <p className="text-[0.7rem] text-slate-500">
-                            {getTime(new Date(msg.timestamp))}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                    )}
+                  </ErrorBoundary>
                 </li>
               ))}
             </ul>
