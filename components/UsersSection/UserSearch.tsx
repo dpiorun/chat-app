@@ -10,7 +10,7 @@ interface Props {
 export default function UserSearch({ dispatch, minifyUserList }: Props) {
   return (
     <div className="center px-auto w-full py-8 px-4 shadow">
-      <form>
+      <form onSubmit={(event) => event.preventDefault()}>
         <label className="relative block">
           <span className="absolute inset-y-0 left-0 flex items-center pl-4">
             <SearchIcon className="fill-slate-300" />
