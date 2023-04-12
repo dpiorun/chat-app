@@ -23,7 +23,7 @@ export default function UsersList({
           <Link href={`${window.location.origin}/chats/${user.login.uuid}`}>
             <li
               data-ui={activeUser?.login.uuid == user.login.uuid && "active"}
-              className="relative flex max-w-full items-center px-4 py-7 shadow hover:cursor-pointer hover:bg-white hover:shadow hover:drop-shadow data-active:border-r-4 data-active:border-r-lavender-500 data-active:bg-white"
+              className="group relative flex max-w-full items-center px-4 py-7 shadow hover:cursor-pointer hover:bg-white hover:shadow hover:drop-shadow data-active:border-r-4 data-active:border-r-lavender-500 data-active:bg-white"
             >
               <div className="flex w-full gap-4">
                 <Avatar src={user.picture.thumbnail} size="sm" />
@@ -48,7 +48,7 @@ export default function UsersList({
                   </div>
                   {conversations.getLastMessage(user.login.uuid) && (
                     <div className="place-self-center">
-                      <span className="whitespace-nowrap rounded-full bg-white py-1 px-2 text-xs font-semibold text-slate-400 sm:hidden">
+                      <span className="whitespace-nowrap rounded-full bg-white py-1 px-2 text-xs font-semibold text-slate-400 group-data-active:hidden">
                         {timeSince(
                           conversations.getLastMessage(user.login.uuid)!
                             .timestamp
