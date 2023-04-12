@@ -21,7 +21,7 @@ export default function UserDetails({ user, toggleShowUserDetails }: Props) {
       <div className="flex h-full w-screen flex-col items-center px-5 py-12 shadow xl:w-full">
         <ArrowBack
           onClick={toggleShowUserDetails}
-          className="absolute top-0 left-0 py-5 xl:hidden"
+          className="absolute top-0 left-0 py-6 xl:hidden"
         />
         <Avatar src={user.picture.large} size="lg" />
         <p className="overflow-hidden text-ellipsis pt-6 pb-2 text-2xl font-bold tracking-wide text-lavender-500">

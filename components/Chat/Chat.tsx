@@ -63,15 +63,17 @@ export default function Chat({ user, toggleShowUserDetails, dispatch }: Props) {
         <>
           <div className="grid grid-cols-[minmax(0,_1fr)_auto] content-center shadow md:shadow-none">
             <div className="flex md:shadow">
-              <Link href="/" className="py-5 lg:hidden">
+              <Link href="/" className="py-6 lg:hidden">
                 <ArrowBack />
               </Link>
-              <div className="flex items-center overflow-hidden py-5 pl-2 font-bold tracking-widest text-lavender-500 md:grow">
-                <p
-                  className="overflow-hidden text-ellipsis whitespace-nowrap font-bold uppercase tracking-widest text-lavender-500 hover:cursor-pointer"
-                  onClick={toggleShowUserDetails}
-                >
-                  {user?.name.first} {user?.name.last}
+              <div className="flex items-center overflow-hidden py-5 pl-2 md:grow">
+                <p className="truncate lg:pl-4" onClick={toggleShowUserDetails}>
+                  <span className="hidden text-slate-500 xl:inline-block">
+                    Chat with:&nbsp;
+                  </span>
+                  <span className="font-bold uppercase tracking-widest text-lavender-500 underline-offset-4 hover:cursor-pointer xl:font-medium xl:normal-case xl:normal-case xl:tracking-normal xl:underline xl:hover:cursor-auto xl:hover:font-medium">
+                    {user?.name.first} {user?.name.last}
+                  </span>
                 </p>
               </div>
             </div>
