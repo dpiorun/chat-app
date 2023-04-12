@@ -8,7 +8,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Live demo
 
-Visit [live demo](chat-app-dpiorun.vercel.app).
+Visit [live demo](https://chat-app-dpiorun.vercel.app).
 
 # Development
 
