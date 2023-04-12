@@ -2,7 +2,7 @@
 
 The purpose of this project is to create a responsive chat user interface (UI) with a layout that resembles the one presented on [Dribbble](https://dribbble.com/shots/3698858-Chat-App-Design).
 
-Users respond after a random time interval between 5-10 seconds. All information, including the user's list and messages, is saved within one session. Data will be lost if the page is refreshed.
+Users respond after a random time interval between 1-2 seconds. All information, including the user's list and messages, is saved within one session. Data will be lost if the page is refreshed.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

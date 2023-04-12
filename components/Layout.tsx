@@ -1,7 +1,7 @@
 import { conversations } from "@/lib/conversations";
 import { User } from "@/types/backendTypes";
 import { useEffect, useReducer, useState } from "react";
-import Chat from "./Chat";
+import Chat from "./Chat/Chat";
 import Navbar from "./Navbar";
 import UserDetails from "./UserDetails";
 import UsersSection from "./UsersSection/UsersSection";

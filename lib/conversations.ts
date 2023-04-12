@@ -49,12 +49,15 @@ class Conversations {
 
   answer(userId: string) {
     const response = "I answer: " + this.getLastMessage(userId)?.content;
-    setTimeout(() => {
-      this.addMessage(userId, {
-        authorId: userId,
-        content: response,
-      });
-    }, getRandomInt(1000, 2000));
+    setTimeout(
+      () => {
+        this.addMessage(userId, {
+          authorId: userId,
+          content: response,
+        });
+      },
+      process.env.NODE_ENV === "test" ? 0 : getRandomInt(1000, 2000)
+    );
   }
 
   getLastMessage(id: string) {
